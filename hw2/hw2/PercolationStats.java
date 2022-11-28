@@ -14,12 +14,18 @@ public class PercolationStats {
         this.T = T;
         results = new int[T];
         int times;
+        int x;
+        int y;
         for (int i = 0; i < T; i++) {
             times = 0;
             Percolation p = pf.make(N);
             while (!p.percolates()) {
-                p.open(StdRandom.uniform(0, N), StdRandom.uniform(0, N));
-                times++;
+                x = StdRandom.uniform(N);
+                y = StdRandom.uniform(N);
+                if (!p.isOpen(x, y)) {
+                    p.open(x, y);
+                    times++;
+                }
             }
             results[i] = times;
         }
