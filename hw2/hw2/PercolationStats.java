@@ -20,7 +20,7 @@ public class PercolationStats {
             do {
                 p.open(StdRandom.uniform(0, N), StdRandom.uniform(0, N));
                 times++;
-            }while (p.percolates());
+            }while (!p.percolates());
             results[i] = times;
         }
 
