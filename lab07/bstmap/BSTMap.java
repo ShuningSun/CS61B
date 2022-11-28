@@ -8,9 +8,9 @@ import java.lang.Comparable;
 
 public class BSTMap<K extends Comparable, V> implements Map61B<K, V>{
 
-    int size;
+    private int size;
 
-    BSTNode root;
+    private BSTNode root;
 
     public BSTMap() {
         size = 0;
