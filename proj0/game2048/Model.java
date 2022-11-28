@@ -62,7 +62,7 @@ public class Model extends Observable {
         return _board.size();
     }
 
-    /** Return true iff the game is over (there are no moves, or
+    /** Return true if the game is over (there are no moves, or
      *  there is a tile with value 2048 on the board). */
     public boolean gameOver() {
         checkGameOver();
@@ -117,6 +117,10 @@ public class Model extends Observable {
      */
     public void tilt(Side side) {
         // TODO: Fill in this function.
+        _board.setViewingPerspective(side);
+        if (atLeastOneMoveExists(_board)){
+
+        }
 
         checkGameOver();
     }
@@ -138,6 +142,15 @@ public class Model extends Observable {
      */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        int tileSize = b.size();
+        for (int col = 0; col < tileSize; col++){
+            for (int row = 0; row < tileSize; row++){
+                Tile holder  = b.tile (col, row);
+                if (holder == null || holder.value() == 0){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -148,6 +161,15 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        int tileSize = b.size();
+        for (int row = 0; row < tileSize; row++){
+            for (int col =0; col < tileSize; col++){
+                Tile holder  = b.tile (row, col);
+                if (holder != null && holder.value() == MAX_PIECE){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -159,6 +181,35 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        if (emptySpaceExists(b)){
+            return true;
+        }
+        int tileSize = b.size();
+        for (int row = 0; row < tileSize; row++){
+            for (int col = 0; col < tileSize; col++){
+                if (checkNeighbor(b, row, col, tileSize)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public static boolean checkNeighbor(Board b, int row, int col, int tileSize) {
+        // TODO: Fill in this function.
+        int eastNeighber = col + 1;
+        int southNeighber = row + 1;
+        if (eastNeighber < tileSize){
+            if (b.tile(row, col).value() == b.tile(row, eastNeighber).value()){
+                return true;
+            }
+        }
+        if (southNeighber < tileSize){
+            if (b.tile(row, col).value() == b.tile(southNeighber, col).value()){
+                return true;
+            }
+        }
         return false;
     }
 
