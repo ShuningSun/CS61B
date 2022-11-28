@@ -10,6 +10,7 @@ public class Percolation {
     int sideNumber;
 
     boolean[] openList;
+
     int waterSide;
 
     int landSide;
