@@ -17,10 +17,10 @@ public class PercolationStats {
         for (int i = 0; i < T; i++) {
             times = 0;
             Percolation p = pf.make(N);
-            do {
+            while (!p.percolates()) {
                 p.open(StdRandom.uniform(0, N), StdRandom.uniform(0, N));
                 times++;
-            }while (!p.percolates());
+            }
             results[i] = times;
         }
 
