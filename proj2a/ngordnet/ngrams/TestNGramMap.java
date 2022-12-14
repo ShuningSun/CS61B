@@ -13,7 +13,7 @@ import java.util.List;
 public class TestNGramMap {
     @Test
     public void testCountHistory() {
-        NGramMap ngm = new NGramMap("./data/ngrams/very_short.csv", "./data/ngrams/total_counts.csv");
+        NGramMap ngm = new NGramMap("/Users/bill/IdeaProjects/CS61B/skeleton-fa22/proj2a/ngordnet/data/ngrams/very_short.csv", "/Users/bill/IdeaProjects/CS61B/skeleton-fa22/proj2a/ngordnet/data/ngrams/total_counts.csv");
         List<Integer> expectedYears = new ArrayList<>
                 (Arrays.asList(2005, 2006, 2007, 2008));
         List<Double> expectedCounts = new ArrayList<>
@@ -43,8 +43,8 @@ public class TestNGramMap {
     @Test
     public void testOnLargeFile() {
         // creates an NGramMap from a large dataset
-        NGramMap ngm = new NGramMap("./data/ngrams/top_14377_words.csv",
-                "./data/ngrams/total_counts.csv");
+        NGramMap ngm = new NGramMap("/Users/bill/IdeaProjects/CS61B/skeleton-fa22/proj2a/ngordnet/data/ngrams/top_14377_words.csv",
+                "/Users/bill/IdeaProjects/CS61B/skeleton-fa22/proj2a/ngordnet/data/ngrams/total_counts.csv");
 
         // returns the count of the number of occurrences of fish per year between 1850 and 1933.
         TimeSeries fishCount = ngm.countHistory("fish", 1850, 1933);
@@ -61,6 +61,7 @@ public class TestNGramMap {
         TimeSeries dogCount = ngm.countHistory("dog", 1850, 1876);
         assertEquals(75819.0, dogCount.get(1865), 1E-10);
 
+
         List<String> fishAndDog = new ArrayList<>();
         fishAndDog.add("fish");
         fishAndDog.add("dog");
@@ -68,6 +69,8 @@ public class TestNGramMap {
 
         double expectedFishPlusDogWeight1865 = (136497.0 + 75819.0) / 2563919231.0;
         assertEquals(expectedFishPlusDogWeight1865, fishPlusDogWeight.get(1865), 1E-10);
+
+
     }
 
 }  

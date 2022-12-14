@@ -16,24 +16,37 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      *  inclusive of both end points. */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
+        ts.forEach((k,v) ->
+        {
+            if (k >= startYear && k <= endYear) {
+            this.put(k, v);
+            }
+        }
+        );
     }
 
     /** Returns all years for this TimeSeries (in any order). */
     public List<Integer> years() {
-        return null;
+        return new ArrayList<>(this.navigableKeySet());
     }
 
     /** Returns all data for this TimeSeries (in any order).
      *  Must be in the same order as years(). */
     public List<Double> data() {
-        return null;
+
+        return new ArrayList<>(this.values());
     }
 
     /** Returns the yearwise sum of this TimeSeries with the given TS. In other words, for
      *  each year, sum the data from this TimeSeries with the data from TS. Should return a
      *  new TimeSeries (does not modify this TimeSeries). */
     public TimeSeries plus(TimeSeries ts) {
-        return null;
+        TimeSeries newTS = new TimeSeries();
+        newTS.putAll(ts);
+        this.forEach(
+                (key, value) -> newTS.merge(key, value, (v1, v2) ->
+                        v1 + v2));
+        return newTS;
     }
 
      /** Returns the quotient of the value for each year this TimeSeries divided by the
@@ -41,6 +54,11 @@ public class TimeSeries extends TreeMap<Integer, Double> {
       *  throw an IllegalArgumentException. If TS has a year that is not in this TimeSeries, ignore it.
       *  Should return a new TimeSeries (does not modify this TimeSeries). */
      public TimeSeries dividedBy(TimeSeries ts) {
-        return null;
+         TimeSeries newTS = new TimeSeries();
+         newTS.putAll(ts);
+         this.forEach(
+                 (key, value) -> newTS.merge(key, value, (v1, v2) ->
+                         v2 / v1));
+         return newTS;
     }
 }
