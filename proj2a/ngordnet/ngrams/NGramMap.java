@@ -64,9 +64,9 @@ public class NGramMap {
 
     /** Returns the summed relative frequency per year of all words in WORDS. */
     public TimeSeries summedWeightHistory(Collection<String> words) {
-        TimeSeries SWH = null;
+        TimeSeries SWH = new TimeSeries();
         for (String i : words) {
-            SWH = SWH == null ? weightHistory(i) : weightHistory(i).plus(SWH);
+            SWH = weightHistory(i).plus(SWH);
         }
         return SWH;
     }
@@ -76,9 +76,9 @@ public class NGramMap {
      *  this time frame, ignore it rather than throwing an exception. */
     public TimeSeries summedWeightHistory(Collection<String> words,
                               int startYear, int endYear) {
-        TimeSeries SWH = null;
+        TimeSeries SWH = new TimeSeries();
         for (String i : words) {
-            SWH = SWH == null ? weightHistory(i, startYear, endYear) : weightHistory(i, startYear, endYear).plus(SWH);
+            SWH = weightHistory(i, startYear, endYear).plus(SWH);
         }
         return SWH;
     }
@@ -91,14 +91,7 @@ public class NGramMap {
             String word = splited[0];
             int year = Integer.parseInt(splited[1]);
             double counts = Double.parseDouble(splited[2]);
-
-            if (wordData.containsKey(word)) {
-                wordData.get(word).put(year, counts);
-            }
-            else {
-                wordData.put(word, new TimeSeries());
-                wordData.get(word).put(year, counts);
-            }
+            wordData.computeIfAbsent(word, k -> new TimeSeries()).put(year, counts);
 
         }
     }
