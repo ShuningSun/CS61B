@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class PlotDemo {
     public static void main(String[] args) {
-        String wordFile = "./data/ngrams/top_14377_words.csv";
-        String countFile = "./data/ngrams/total_counts.csv";
+        String wordFile = "/Users/bill/IdeaProjects/CS61B/skeleton-fa22/proj2a/ngordnet/data/ngrams/top_14377_words.csv";
+        String countFile = "/Users/bill/IdeaProjects/CS61B/skeleton-fa22/proj2a/ngordnet/data/ngrams/total_counts.csv";
         
         NGramMap ngm = new NGramMap(wordFile, countFile);
         ArrayList<String> words = new ArrayList<>();

@@ -73,7 +73,7 @@ public class TestTimeSeries {
         catPopulation.put(1991, 0.0);
         catPopulation.put(1992, 100.0);
         catPopulation.put(1994, 200.0);
-
+        System.out.println(catPopulation.toString());
         TimeSeries dogPopulation = new TimeSeries();
         dogPopulation.put(1994, 200.0);
         dogPopulation.put(1995, 500.0);

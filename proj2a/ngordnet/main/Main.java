@@ -15,8 +15,12 @@ public class Main {
 
         */
 
+        String wordFile = "/Users/bill/IdeaProjects/CS61B/skeleton-fa22/proj2a/ngordnet/data/ngrams/top_14377_words.csv";
+        String countFile = "/Users/bill/IdeaProjects/CS61B/skeleton-fa22/proj2a/ngordnet/data/ngrams/total_counts.csv";
+        NGramMap ngm = new NGramMap(wordFile, countFile);
+
         hns.startUp();
-        hns.register("history", new DummyHistoryHandler());
-        hns.register("historytext", new DummyHistoryTextHandler());
+        hns.register("history", new HistoryHandler(ngm));
+        hns.register("historytext", new HistoryTextHandler(ngm));
     }
 }
