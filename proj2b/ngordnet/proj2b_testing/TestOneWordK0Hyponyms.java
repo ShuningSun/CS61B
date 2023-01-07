@@ -2,6 +2,9 @@ package ngordnet.proj2b_testing;
 
 import ngordnet.hugbrowsermagic.NgordnetQuery;
 import ngordnet.hugbrowsermagic.NgordnetQueryHandler;
+import ngordnet.main.HyponymHandler;
+import ngordnet.main.WordNet;
+import ngordnet.ngrams.NGramMap;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,12 +22,15 @@ public class TestOneWordK0Hyponyms {
 
     @Test
     public void testActK0() {
+        WordNet wn = new WordNet (SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
+        NGramMap ngm = new NGramMap(WORDS_FILE, TOTAL_COUNTS_FILE);
+        HyponymHandler handler = new HyponymHandler(wn, ngm);
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
         List<String> words = List.of("act");
 
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
-        String actual = studentHandler.handle(nq);
+        String actual = handler.handle(nq);
         String expected = "[act, action, change, demotion, human_action, human_activity, variation]";
         assertEquals(expected, actual);
     }

@@ -2,6 +2,9 @@ package ngordnet.proj2b_testing;
 
 import ngordnet.hugbrowsermagic.NgordnetQuery;
 import ngordnet.hugbrowsermagic.NgordnetQueryHandler;
+import ngordnet.main.HyponymHandler;
+import ngordnet.main.WordNet;
+import ngordnet.ngrams.NGramMap;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,11 +35,14 @@ public class TestOneWordNonZeroKHyponyms {
      *  Note: The startYear and endYear should have no effect since k = 0.  */
     @Test
     public void testDashK0in2007() {
+        WordNet wn = new WordNet (SYNSET_FILE, HYPONYM_FILE);
+        NGramMap ngm = new NGramMap(WORDS_FILE, TOTAL_COUNTS_FILE);
+        HyponymHandler handler = new HyponymHandler(wn, ngm);
 
         List<String> words = List.of("dash");
 
         NgordnetQuery nq = new NgordnetQuery(words, 2007, 2007, 0);
-        String actual = studentHandler.handle(nq);
+        String actual = handler.handle(nq);
 
         String expected = "[bolt, break, dah, dash, elan, fast_break, flair, hyphen, panache, sprint, style]";
         assertEquals(expected, actual);
@@ -46,10 +52,14 @@ public class TestOneWordNonZeroKHyponyms {
      *  The result should just be ["style"] since potato is the most popular hyponym of dash in 2007 */
     @Test
     public void testDashK1in2007() {
+        WordNet wn = new WordNet (SYNSET_FILE, HYPONYM_FILE);
+        NGramMap ngm = new NGramMap(WORDS_FILE, TOTAL_COUNTS_FILE);
+        HyponymHandler handler = new HyponymHandler(wn, ngm);
+
         List<String> words = List.of("dash");
 
         NgordnetQuery nq = new NgordnetQuery(words, 2007, 2007, 1);
-        String actual = studentHandler.handle(nq);
+        String actual = handler.handle(nq);
 
         // The most popular dash in 2007 was style.
         String expected = "[style]";
@@ -59,10 +69,13 @@ public class TestOneWordNonZeroKHyponyms {
     /** Tests finding top hyponyms of dash (k = 3) for startYear = 2007, endYear = 2007.*/
     @Test
     public void testDashK3in2007() {
+        WordNet wn = new WordNet (SYNSET_FILE, HYPONYM_FILE);
+        NGramMap ngm = new NGramMap(WORDS_FILE, TOTAL_COUNTS_FILE);
+        HyponymHandler handler = new HyponymHandler(wn, ngm);
         List<String> words = List.of("dash");
 
         NgordnetQuery nq = new NgordnetQuery(words, 2007, 2007, 3);
-        String actual = studentHandler.handle(nq);
+        String actual = handler.handle(nq);
 
         // The three most popular dash hyponyms were bolt, break, and style in alphabetical order
         String expected = "[bolt, break, style]";
@@ -72,11 +85,13 @@ public class TestOneWordNonZeroKHyponyms {
     /** Tests finding top hyponyms of dash (k = 3) for startYear = 1700, endYear = 1703.*/
     @Test
     public void testDashK3in1700to1703() {
-
+        WordNet wn = new WordNet (SYNSET_FILE, HYPONYM_FILE);
+        NGramMap ngm = new NGramMap(WORDS_FILE, TOTAL_COUNTS_FILE);
+        HyponymHandler handler = new HyponymHandler(wn, ngm);
         List<String> words = List.of("dash");
 
         NgordnetQuery nq = new NgordnetQuery(words, 1700, 1703, 3);
-        String actual = studentHandler.handle(nq);
+        String actual = handler.handle(nq);
 
         // The three most popular dash hyponyms were break, dash, and style in alphabetical order
         String expected = "[break, dash, style]";

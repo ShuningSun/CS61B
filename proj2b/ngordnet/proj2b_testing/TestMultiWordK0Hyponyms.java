@@ -2,6 +2,7 @@ package ngordnet.proj2b_testing;
 
 import ngordnet.hugbrowsermagic.NgordnetQuery;
 import ngordnet.hugbrowsermagic.NgordnetQueryHandler;
+import ngordnet.main.WordNet;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,6 +23,7 @@ public class TestMultiWordK0Hyponyms {
     /** This is an example from the spec.*/
     @Test
     public void testOccurrenceAndChangeK0() {
+        WordNet wn = new WordNet (SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
         List<String> words = List.of("occurrence", "change");
@@ -35,6 +37,7 @@ public class TestMultiWordK0Hyponyms {
     /** This is an example from the spec on the full hyponyms and synsets file.*/
     @Test
     public void testBowlGalleryK0() {
+        WordNet wn = new WordNet (SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("bowl", "gallery");
@@ -48,6 +51,7 @@ public class TestMultiWordK0Hyponyms {
     /** This is another example from the spec where the user enters female, animal. */
     @Test
     public void testFemaleAnimalK0() {
+        WordNet wn = new WordNet (SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("female", "animal");
