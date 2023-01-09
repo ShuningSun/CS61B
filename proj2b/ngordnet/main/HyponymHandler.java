@@ -5,9 +5,7 @@ import ngordnet.hugbrowsermagic.NgordnetQueryHandler;
 import ngordnet.ngrams.NGramMap;
 import ngordnet.ngrams.TimeSeries;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class HyponymHandler extends NgordnetQueryHandler{
 
@@ -35,9 +33,13 @@ public class HyponymHandler extends NgordnetQueryHandler{
         List<String> str = new ArrayList<>();
         result.forEach(s -> {
             Double occurance =
-                    ngm.countHistory(s.trim(), startYear, endYear).data().stream().mapToDouble(Double::doubleValue).sum();
-            if (heap.peek() < occurance && heap.size() > k) {
+                    ngm.countHistory(s, startYear, endYear).data().stream().mapToDouble(Double::doubleValue).sum();
+
+            if (Double.compare(heap.peek(), occurance) < 0 && heap.size() > k && k != 0) {
                 heap.remove();
+                heap.add(new HeapNode(occurance, s));
+            }
+            else if(heap.size() < k + 1 || k == 0) {
                 heap.add(new HeapNode(occurance, s));
             }
         });
@@ -51,8 +53,13 @@ public class HyponymHandler extends NgordnetQueryHandler{
                 str.add(heap.remove());
             }
         }
-
+        Collections.sort(str);
         return "[" + String.join(", ", str) + "]";
+    }
+
+    private double getWordCountSum(String word, int startYear, int endYear) {
+        var ts = ngm.countHistory(word, startYear, endYear);
+        return ts.data().parallelStream().mapToDouble(Double::doubleValue).sum();
     }
 
     class HeapNode {

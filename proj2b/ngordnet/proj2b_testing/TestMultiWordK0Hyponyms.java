@@ -58,7 +58,8 @@ public class TestMultiWordK0Hyponyms {
 
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
-        String expected = "You have to fill in this text yourself. Hint: COPY FROM THE SPEC!";
+        String expected =
+                "[amazon, bird, cat, chick, dam, demoiselle, female, female_mammal, filly, hag, hen, nanny, nymph, siren]";
         assertEquals(expected, actual);
     }
 
@@ -69,11 +70,11 @@ public class TestMultiWordK0Hyponyms {
 
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = null; // <-- replace with the appropriate list of words!
+        List<String> words = List.of("modification", "animal"); // <-- replace with the appropriate list of words!
 
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
-        String expected = "You have to fill in this text yourself. Hint: COPY FROM THE SPEC!";
+        String expected = "[]";
         assertEquals(expected, actual);
     }
 
